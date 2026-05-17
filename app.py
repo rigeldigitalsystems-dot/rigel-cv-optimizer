@@ -11,17 +11,154 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
-  html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
-  .main-title { font-family: 'DM Serif Display', serif; font-size: 2.8rem; text-align: center; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
-  .subtitle { text-align: center; color: #888; font-size: 1rem; margin-bottom: 2.5rem; }
-  .badge { display: inline-block; background: #f0f0f0; color: #555; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; }
-  .header-center { text-align: center; }
-  .section-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 0.4rem; }
-  .result-box { background: #fafafa; border: 1px solid #ebebeb; border-radius: 10px; padding: 1.2rem 1.4rem; font-size: 0.9rem; line-height: 1.75; min-height: 280px; white-space: pre-wrap; color: #222; }
-  .free-note { font-size: 0.75rem; color: #aaa; text-align: right; }
-  .stButton > button { width: 100%; background: #111 !important; color: #fff !important; border: none !important; border-radius: 8px !important; font-size: 1rem !important; padding: 0.65rem 0 !important; font-weight: 500 !important; }
-  .stButton > button:hover { opacity: 0.82 !important; }
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+  html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Giriş animasyonu */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .anim-1 { animation: fadeSlideUp 0.6s ease both; }
+  .anim-2 { animation: fadeSlideUp 0.6s ease 0.15s both; }
+  .anim-3 { animation: fadeSlideUp 0.6s ease 0.3s both; }
+  .anim-4 { animation: fadeSlideUp 0.6s ease 0.45s both; }
+
+  .header-center { text-align: center; padding: 2rem 0 1.5rem; }
+  .badge {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #666;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+  .main-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  .subtitle {
+    color: #999;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  /* Bölüm başlıkları */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  /* Textarea & select düzeni */
+  .stTextArea textarea {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.88rem !important;
+    line-height: 1.7 !important;
+    border-radius: 10px !important;
+    border: 1px solid #e8e8e8 !important;
+    padding: 14px !important;
+    background: #fafafa !important;
+    color: #222 !important;
+  }
+  .stTextArea textarea:focus {
+    border-color: #ccc !important;
+    background: #fff !important;
+  }
+
+  /* Sonuç kutusu — textarea ile aynı görünüm */
+  .result-box {
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    min-height: 300px;
+    white-space: pre-wrap;
+    color: #222;
+  }
+  .result-box.empty {
+    color: #bbb;
+    font-style: italic;
+  }
+
+  /* Markdown başlıklarını sonuç kutusunda gizle */
+  .result-box h1, .result-box h2, .result-box h3 { font-size: 0.88rem; font-weight: 500; }
+
+  .free-note {
+    font-size: 0.72rem;
+    color: #bbb;
+    text-align: right;
+    margin-top: 6px;
+  }
+
+  /* Butonlar */
+  .stButton > button {
+    width: 100%;
+    background: #111 !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 0.95rem !important;
+    padding: 0.6rem 0 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+    transition: opacity 0.2s;
+  }
+  .stButton > button:hover { opacity: 0.78 !important; }
+
+  div[data-testid="stDownloadButton"] button {
+    background: #f5f5f5 !important;
+    color: #333 !important;
+    border: 1px solid #e0e0e0 !important;
+  }
+  div[data-testid="stDownloadButton"] button:hover {
+    background: #eee !important;
+    opacity: 1 !important;
+  }
+
+  /* Select kutuları */
+  .stSelectbox > div > div {
+    border-radius: 8px !important;
+    border: 1px solid #e8e8e8 !important;
+    background: #fafafa !important;
+    font-size: 0.88rem !important;
+  }
+
+  /* Metrik kartlar */
+  [data-testid="metric-container"] {
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+
+  /* Ayırıcı */
+  hr { border: none; border-top: 1px solid #f0f0f0; margin: 1.5rem 0; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: #ccc;
+    font-size: 0.75rem;
+    padding: 1rem 0 2rem;
+  }
 </style>
 """, unsafe_allow_html=True)
 
@@ -32,9 +169,14 @@ if "result" not in st.session_state:
 if "scores" not in st.session_state:
     st.session_state.scores = {}
 
-st.markdown('<div class="header-center"><span class="badge">✦ Rigel AI</span></div>', unsafe_allow_html=True)
-st.markdown('<div class="main-title">CV\'ni saniyeler içinde düzelt</div>', unsafe_allow_html=True)
-st.markdown('<div class="subtitle">AI destekli optimizasyon — insan gözünden ve AI dedektörlerinden geçer</div>', unsafe_allow_html=True)
+# Header — animasyonlu
+st.markdown("""
+<div class="header-center">
+  <div class="anim-1"><span class="badge">✦ Rigel AI</span></div>
+  <div class="anim-2"><div class="main-title">CV'ni saniyeler içinde düzelt</div></div>
+  <div class="anim-3"><div class="subtitle">AI destekli optimizasyon — insan gözünden ve AI dedektörlerinden geçer</div></div>
+</div>
+""", unsafe_allow_html=True)
 
 api_key = st.secrets.get("GROQ_API_KEY", "")
 if not api_key:
@@ -43,21 +185,22 @@ if not api_key:
         st.info("Sidebar'dan Groq API key'ini gir.")
         st.stop()
 
-col_in, _, col_out = st.columns([1, 0.05, 1])
+st.markdown('<div class="anim-4">', unsafe_allow_html=True)
+col_in, _, col_out = st.columns([1, 0.04, 1])
 
 with col_in:
     st.markdown('<div class="section-label">CV\'niz</div>', unsafe_allow_html=True)
     cv_input = st.text_area(
-        label="cv_input",
+        label="cv",
         label_visibility="collapsed",
         placeholder="CV'nizi buraya yapıştırın...",
         height=300,
     )
     col1, col2 = st.columns(2)
     with col1:
-        tone = st.selectbox("Ton", ["Teknik", "Resmi", "Günlük"])
+        tone = st.selectbox("Ton", ["Teknik", "Resmi", "Günlük"], label_visibility="visible")
     with col2:
-        focus = st.selectbox("Odak", ["Genel", "ATS Skoru", "Liderlik"])
+        focus = st.selectbox("Odak", ["Genel", "ATS Skoru", "Liderlik"], label_visibility="visible")
 
     st.markdown(f'<div class="free-note">Kalan kullanım: {st.session_state.usage}</div>', unsafe_allow_html=True)
     optimize_clicked = st.button("✦ CV'yi Optimize Et")
@@ -76,19 +219,18 @@ with col_out:
 
 Aşağıdaki CV'yi şu kurallara göre yeniden yaz:
 - Güçlü eylem fiilleri kullan (Yönetti, Geliştirdi, Teslim Etti, Azalttı, Artırdı, Tasarladı, Başlattı)
-- Mümkün olduğunda ölçülebilir başarılar ekle (örn: "Yükleme süresini %40 azalttı")
+- Mümkün olduğunda ölçülebilir başarılar ekle (örn: "Yükleme süresini yüzde 40 azalttı")
 - Öz, etkili ve ATS uyumlu olsun
 - Teknik becerileri net şekilde öne çıkar
 - Zayıf, pasif veya genel ifadeleri kaldır
 
-KRİTİK — Yazım stili kuralları (kesinlikle uyulmalı):
+KRİTİK — Yazım stili kuralları:
 - Cümle uzunluklarını çeşitlendir: kısa ve uzun cümleleri karıştır
 - Doğal geçişler kullan — "Bunun yanı sıra", "Kısacası", "Özellikle" gibi
-- "Ayrıca", "Dahası", "Ek olarak" gibi tekrarlayan kalıplardan kaçın
 - Arka arkaya aynı kelimeyle başlayan cümleler yazma
 - Madde uzunluklarını değiştir — bazıları kısa, bazıları daha uzun olsun
 - Gerçek bir insan uzman yazmış gibi yaz, yapay zeka değil
-- İngilizce kelime veya kalıp KULLANMA, tamamen Türkçe yaz
+- İngilizce kelime veya kalıp kesinlikle kullanma
 
 Ton: {tone}
 Odak: {focus}
@@ -130,6 +272,7 @@ CV:
 
     if st.session_state.result:
         st.markdown(f'<div class="result-box">{st.session_state.result}</div>', unsafe_allow_html=True)
+        st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
         b1, b2 = st.columns(2)
         with b1:
             st.download_button("⬇ İndir", st.session_state.result, file_name="optimize-cv.txt", mime="text/plain", use_container_width=True)
@@ -138,7 +281,9 @@ CV:
                 st.session_state.result = ""
                 st.rerun()
     else:
-        st.markdown('<div class="result-box" style="color:#bbb;font-style:italic;">Optimize edilmiş CV burada görünecek...</div>', unsafe_allow_html=True)
+        st.markdown('<div class="result-box empty">Optimize edilmiş CV burada görünecek...</div>', unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 if st.session_state.scores:
     st.markdown("---")
@@ -151,4 +296,4 @@ if st.session_state.scores:
         col.progress(val / 100)
 
 st.markdown("---")
-st.markdown('<div style="text-align:center;color:#bbb;font-size:0.8rem;">Rigel Digital Systems · Geliştiriciler ve öğrenciler için AI araçları</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">Rigel Digital Systems · Geliştiriciler ve öğrenciler için AI araçları</div>', unsafe_allow_html=True)
