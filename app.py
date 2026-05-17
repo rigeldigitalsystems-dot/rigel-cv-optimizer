@@ -64,26 +64,26 @@ st.markdown("""
     border-bottom: 1px solid #f0f0f0;
   }
 
-  /* Textarea & select düzeni */
+  /* Textarea */
   .stTextArea textarea {
     font-family: 'DM Sans', sans-serif !important;
     font-size: 0.88rem !important;
     line-height: 1.7 !important;
     border-radius: 10px !important;
-    border: 1px solid #e8e8e8 !important;
+    border: 1px solid #2a2a2a !important;
     padding: 14px !important;
-    background: #fafafa !important;
-    color: #222 !important;
+    background: #161616 !important;
+    color: #fff !important;
   }
   .stTextArea textarea:focus {
-    border-color: #ccc !important;
-    background: #fff !important;
+    border-color: #444 !important;
   }
+  .stTextArea textarea::placeholder { color: #555 !important; }
 
-  /* Sonuç kutusu — textarea ile aynı görünüm */
+  /* Sonuç kutusu */
   .result-box {
-    background: #fafafa;
-    border: 1px solid #e8e8e8;
+    background: #161616;
+    border: 1px solid #2a2a2a;
     border-radius: 10px;
     padding: 14px 16px;
     font-family: 'DM Sans', sans-serif;
@@ -91,15 +91,19 @@ st.markdown("""
     line-height: 1.7;
     min-height: 300px;
     white-space: pre-wrap;
-    color: #222;
+    color: #fff;
   }
-  .result-box.empty {
-    color: #bbb;
-    font-style: italic;
-  }
+  .result-box.empty { color: #555; font-style: italic; }
 
-  /* Markdown başlıklarını sonuç kutusunda gizle */
-  .result-box h1, .result-box h2, .result-box h3 { font-size: 0.88rem; font-weight: 500; }
+  /* Select kutuları */
+  .stSelectbox > div > div {
+    border-radius: 8px !important;
+    border: 1px solid #2a2a2a !important;
+    background: #161616 !important;
+    color: #fff !important;
+    font-size: 0.88rem !important;
+  }
+  .stSelectbox svg { fill: #888 !important; }
 
   .free-note {
     font-size: 0.72rem;
@@ -131,14 +135,6 @@ st.markdown("""
   div[data-testid="stDownloadButton"] button:hover {
     background: #eee !important;
     opacity: 1 !important;
-  }
-
-  /* Select kutuları */
-  .stSelectbox > div > div {
-    border-radius: 8px !important;
-    border: 1px solid #e8e8e8 !important;
-    background: #fafafa !important;
-    font-size: 0.88rem !important;
   }
 
   /* Metrik kartlar */
