@@ -1,6 +1,6 @@
 # Rigel AI — CV Optimizer
 
-AI-powered CV improvement tool. Passes AI detectors.
+AI kontrollerinden geçen bir yazılım sistemi, insan eliyle yazılmış cv'ler oluşturun.
 
 ## Kurulum
 
@@ -14,9 +14,4 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy (Streamlit Cloud)
 
-1. GitHub'a push et (secrets.toml hariç)
-2. share.streamlit.io → New app → repo seç
-3. Settings → Secrets → ANTHROPIC_API_KEY ekle
-4. Deploy 🚀
