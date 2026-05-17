@@ -291,4 +291,4 @@ if st.session_state.scores:
         col.progress(val / 100)
 
 st.markdown("---")
-st.markdown('<div class="footer">Rigel Digital Systems · Geliştiriciler ve öğrenciler için AI araçları</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">Rigel Digital Systems · İlim bir avdır, yazı ise onu bağlayan iptir</div>', unsafe_allow_html=True)
