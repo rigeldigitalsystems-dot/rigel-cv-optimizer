@@ -170,7 +170,7 @@ st.markdown("""
 <div class="header-center">
   <div class="anim-1"><span class="badge">✦ Rigel AI</span></div>
   <div class="anim-2"><div class="main-title">CV'ni saniyeler içinde düzelt</div></div>
-  <div class="anim-3"><div class="subtitle">AI destekli optimizasyon — insan gözünden ve AI dedektörlerinden geçer</div></div>
+  <div class="anim-3"><div class="subtitle">Şirketlerin başvuru sistemleriyle tam uyumlu, profesyonel İK standartlarında optimizasyon.</div></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -198,7 +198,6 @@ with col_in:
     with col2:
         focus = st.selectbox("Odak", ["Genel", "ATS Skoru", "Liderlik"], label_visibility="visible")
 
-    st.markdown(f'<div class="free-note">Kalan kullanım: {st.session_state.usage}</div>', unsafe_allow_html=True)
     optimize_clicked = st.button("✦ CV'yi Optimize Et")
 
 with col_out:
